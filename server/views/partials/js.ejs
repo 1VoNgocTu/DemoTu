@@ -1,0 +1,153 @@
+<!-- jQuery -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<!-- jQuery UI 1.11.4 -->
+<script src="plugins/jquery-ui/jquery-ui.min.js"></script>
+<!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+<script>
+  $.widget.bridge('uibutton', $.ui.button)
+</script>
+<!-- Bootstrap 4 -->
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- ChartJS -->
+<script src="plugins/chart.js/Chart.min.js"></script>
+<!-- Sparkline -->
+<script src="plugins/sparklines/sparkline.js"></script>
+<!-- JQVMap -->
+<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
+<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+<!-- jQuery Knob Chart -->
+<script src="plugins/jquery-knob/jquery.knob.min.js"></script>
+<!-- daterangepicker -->
+<script src="plugins/moment/moment.min.js"></script>
+<script src="plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"></script>
+<!-- Summernote -->
+<script src="plugins/summernote/summernote-bs4.min.js"></script>
+<!-- overlayScrollbars -->
+<script src="plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+<!-- AdminLTE App -->
+<script src="dist/js/adminlte.js"></script>
+<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
+<script src="dist/js/pages/dashboard.js"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="dist/js/demo.js"></script>
+
+<!-- ajax -->
+<script>
+function getData(name)
+{
+  return $('#'+name).val();
+}
+
+function checkData(name)
+{
+  // empty
+  return (getData(name)=='') ? false : true;
+}
+
+function sendAjax(url, data, type='')
+{
+  $.ajax({
+    url: url,
+    type: 'POST',
+    data: data,
+    success: function(results){
+      if(results.kq==0){
+        alert(results.err);
+      }else{
+        if(type=='')
+        {
+          if(results.id_hidden=='')
+          {
+            // thêm dữ liệu
+            alert('Thêm dữ liệu thành công');
+            window.location.href = 'admin/<%=name_module%>/index';
+          }
+          else
+          {
+            // chỉnh sửa
+            alert('Cập nhật dữ liệu thành công');
+          }
+        }
+        else if(type=='popup')
+        {
+          $('#kq_popup_name').html(results.data.username);
+        }
+        else if(type=='delete')
+        {
+          alert(results.message);
+        }
+      }
+      console.log(results);
+    }
+  });
+  return false;
+}
+
+$(document).ready(function(){
+  $('#submitForm').on('submit', function(e){
+    e.preventDefault();
+
+    // array
+    var array = ['name','username','password','email','phone'];
+
+    var kq=1, data={};
+
+    // getData and checkData
+    array.forEach(e=>{
+      if(checkData(e) == false ){
+        kq=0;
+        $('.err_'+e).text(e+' không được rỗng');
+      }
+      else{
+        $('.err_'+e).text('');
+        data[e]=getData(e);
+      }
+    });
+
+    // thêm id_hidden vào object data
+    data['id_hidden']=$('#id_hidden').val();
+
+    // last results
+    if(kq==1){
+      // gửi ajax
+      var url='admin/<%=name_module%>/processForm';
+      sendAjax(url, data);
+    }
+    
+  });
+});
+
+function popup(id)
+{
+  // thêm attribute
+  $('#add_atribute_delete').attr('onclick','deleteData('+"'"+id+"'"+')');
+
+  // gửi ajax
+  var url='admin/<%=name_module%>/popup';
+  var data={'id': id};
+
+  sendAjax(url, data, 'popup');
+}
+
+function deleteData(id)
+{
+  // xóa hàng
+  $('#id_tr_delete_'+id).remove();
+  var url='admin/<%=name_module%>/delete';
+  var data={'id': id};
+
+  sendAjax(url, data, 'delete');
+}
+
+function js_status(id)
+{
+  var value = $('#status_'+id).prop('checked');
+
+  var url='admin/<%=name_module%>/status';
+  var data={'id': id, 'value': value};
+
+  sendAjax(url, data, 'status');
+}
+</script>

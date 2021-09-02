@@ -1,0 +1,45 @@
+POST http://localhost:3000/api/auth/register
+Content-Type: application/json
+
+{
+    "username": "ngoctu2",
+    "password": "1234"
+}
+
+###
+
+POST http://localhost:3000/api/auth/login
+Content-Type: application/json
+
+{
+    "username": "ngoctu",
+    "password": "1234"
+}
+
+###
+
+POST http://localhost:3000/api/posts
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2MTI1YTQwNjA1ZjcwZDNjNGM3YmRjMTIiLCJpYXQiOjE2Mjk4NTY4MzcsImV4cCI6MTYyOTg1Njg1Mn0.2o-2EvCg2e1zGxCe3N7HVij49jIXQb5phoov9GzJNzQ
+
+{
+    "title": "xxxx",
+    "description": "ngoctu2355",
+    "url": "google.com"
+}
+
+###
+
+POST http://localhost:3000/api/auth/token
+Content-Type: application/json
+
+{
+    "refreshToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjVhNDA2MDVmNzBkM2M0YzdiZGMxMiIsInVzZXJuYW1lIjoibmdvY3R1MSIsImlhdCI6MTYyOTg2MDYyMCwiZXhwIjoxNjI5ODY0MjIwfQ.O5hUm1CjjFzoztTAzuo26wDg-K5fZpb0Q9K58Rk9IbE"
+}
+
+###
+
+DELETE http://localhost:3000/api/auth/logout
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYxMjVjOTU5ZWJkNGQ0OTJjY2RkYjY2YyIsInVzZXJuYW1lIjoibmdvY3R1IiwiaWF0IjoxNjI5ODY3MzI3LCJleHAiOjE2Mjk4NjczNTd9.7yo4qDQBQUmoeO7hp3D5DXfA8Rq07SXi5OgrOju0P4M
+

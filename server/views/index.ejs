@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <base href="http://localhost:3000/">
+  
+  <%-include('partials/css')%>
+</head>
+<body class="hold-transition sidebar-mini layout-fixed">
+<div class="wrapper">
+
+    <%-include('partials/nav')%>
+
+    <%-include('partials/aside')%>
+
+    <%-include(main)%>
+
+    <%-include('partials/footer')%>
+
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Thông báo</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Bạn có chắc chắc muốn xóa <b id="kq_popup_name"></b>?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger" id="add_atribute_delete" data-dismiss="modal">
+              <i class="fas fa-trash"></i> Bỏ vào thùng rác
+            </button>
+            <button type="button" class="btn btn-default" data-dismiss="modal">Thoát</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+</div>
+
+<%-include('partials/js')%>
+</body>
+</html>
